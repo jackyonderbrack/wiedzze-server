@@ -3,9 +3,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import http from 'http';
 import Logging from './library/Logging';
-import templateRouter from './routes/template-route';
 import authRouter from './routes/auth-router';
-import createAdminRouter from './routes/createAdmin-router';
+import configurationRouter from './routes/configuration-router';
 
 const router = express();
 
@@ -50,9 +49,8 @@ const StartServer = () => {
     });
 
     // Routes
-    router.use('/template', templateRouter);
     router.use('/auth', authRouter);
-    router.use('/start', createAdminRouter);
+    router.use('/start', configurationRouter);
 
     // Healthcheck
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

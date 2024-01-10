@@ -6,15 +6,13 @@ import Logging from '../library/Logging';
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { identifier, password } = req.body;
-        const user = await userModel.findOne({
-            $or: [{ userName: identifier }, { userEmail: identifier }]
-        });
+        const { userName, userPassword } = req.body;
+        const user = await userModel.findOne({ userName: userName });
         if (!user) {
             return Logging.error('Użytkownik nie znaleziony');
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user.userPassword);
+        const isPasswordValid = await bcrypt.compare(userPassword, user.userPassword);
         if (!isPasswordValid) {
             return Logging.error('Niepoprawne hasło');
         }
