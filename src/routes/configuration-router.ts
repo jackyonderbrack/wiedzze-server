@@ -3,6 +3,6 @@ import { createAdminUser } from '../controllers/configuration-controller';
 
 const configurationRouter: Router = express.Router();
 
-configurationRouter.post('/configure', createAdminUser);
+configurationRouter.post('/first-configuration', createAdminUser);
 
 export default configurationRouter;
