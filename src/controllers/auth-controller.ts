@@ -6,8 +6,8 @@ import Logging from '../library/Logging';
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { userName, userPassword } = req.body;
-        const user = await userModel.findOne({ userName: userName });
+        const { userLogin, userPassword } = req.body;
+        const user = await userModel.findOne({ userName: userLogin });
         if (!user) {
             return Logging.error('Użytkownik nie znaleziony');
         }
