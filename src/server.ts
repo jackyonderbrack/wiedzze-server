@@ -1,10 +1,11 @@
-import { config } from './config/database-config';
+import { config } from './config/database.config';
 import express from 'express';
 import mongoose from 'mongoose';
 import http from 'http';
 import Logging from './library/Logging';
-import authRouter from './routes/auth-router';
-import configurationRouter from './routes/configuration-router';
+import authRouter from './routes/auth.router';
+import configurationRouter from './routes/configuration.router';
+import categoriesRouter from './routes/categories.router';
 
 const router = express();
 
@@ -51,6 +52,7 @@ const StartServer = () => {
     // Routes
     router.use('/auth', authRouter);
     router.use('/start', configurationRouter);
+    router.use('/categories', categoriesRouter)
 
     // Healthcheck
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

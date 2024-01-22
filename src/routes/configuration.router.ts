@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createAdminUser } from '../controllers/configuration-controller';
+import { createAdminUser } from '../controllers/configuration.controller';
 
 const configurationRouter: Router = express.Router();
 

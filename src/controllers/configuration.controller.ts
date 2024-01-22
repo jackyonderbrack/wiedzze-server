@@ -1,4 +1,4 @@
-import userModel from '../models/user-model';
+import userModel from '../models/user.model';
 import { NextFunction, Request, Response } from 'express';
 import Logging from '../library/Logging';
 import bcrypt from 'bcrypt';
