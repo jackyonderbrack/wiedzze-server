@@ -11,7 +11,7 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
     return res.status(200).json({ message: 'Stworzono', newCategory });
 };
 
-export const getCategories = async (req: Request, res: Response, next: NextFunction) => {
+export const getCategories = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const categories = await categoryModel.find();
         res.status(200).json(categories);
@@ -42,6 +42,23 @@ export const deleteCategory = async (req: Request, res: Response, next: NextFunc
         }
         Logging.info(`Kategoria "${deletedCategory.categoryName}" została usunięta`);
         res.status(200).json({ message: 'Usunięto', deletedCategory });
+    } catch (error) {
+        Logging.error(error);
+        next(error);
+    }
+};
+
+export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const categoryId = req.params.id;
+        const updateData = req.body;
+
+        const updatedCategory = await categoryModel.findByIdAndUpdate(categoryId, updateData, { new: true });
+        if (!updatedCategory) {
+            return res.status(404).json({ message: 'Kategoria nie znaleziona' });
+        }
+        Logging.info(`Kategoria "${updatedCategory.categoryName}" została zaktualizowana`);
+        res.status(200).json({ message: 'Zaktualizowano', updatedCategory });
     } catch (error) {
         Logging.error(error);
         next(error);
