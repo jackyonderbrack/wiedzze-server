@@ -20,3 +20,12 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
         return res.status(500).json({ message: 'Błąd na serwerze podczas przesyłania', error });
     }
 };
+
+export const getMedia = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const mediaList = await mediaModel.find();
+        res.status(200).json(mediaList);
+    } catch (error) {
+        return res.status(500).json({ message: 'Błąd na serwerze podczas pobierania listy mediów', error });
+    }
+};
