@@ -8,6 +8,7 @@ import configurationRouter from './routes/configuration.router';
 import categoriesRouter from './routes/categories.router';
 import newsRouter from './routes/news.router';
 import mediaRouter from './routes/media.router';
+import path from 'path';
 
 const router = express();
 
@@ -57,6 +58,7 @@ const StartServer = () => {
     router.use('/categories', categoriesRouter);
     router.use('/news', newsRouter);
     router.use('/media', mediaRouter);
+    router.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
     // Healthcheck
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

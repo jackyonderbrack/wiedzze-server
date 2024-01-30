@@ -1,7 +1,6 @@
 import express, { Router } from 'express';
 import multer from 'multer';
-import { getMedia, uploadFile } from '../controllers/media.controller';
-import fs from 'fs';
+import { deleteMedia, getMedia, uploadFile } from '../controllers/media.controller';
 
 const mediaRouter: Router = express.Router();
 
@@ -19,5 +18,7 @@ const upload = multer({ storage: storage });
 mediaRouter.get('/get', getMedia);
 
 mediaRouter.post('/upload', upload.single('file'), uploadFile);
+
+mediaRouter.delete('/delete/:id', deleteMedia);
 
 export default mediaRouter;
