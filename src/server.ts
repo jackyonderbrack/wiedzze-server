@@ -7,6 +7,7 @@ import authRouter from './routes/auth.router';
 import configurationRouter from './routes/configuration.router';
 import categoriesRouter from './routes/categories.router';
 import newsRouter from './routes/news.router';
+import mediaRouter from './routes/media.router';
 
 const router = express();
 
@@ -55,6 +56,7 @@ const StartServer = () => {
     router.use('/start', configurationRouter);
     router.use('/categories', categoriesRouter);
     router.use('/news', newsRouter);
+    router.use('/media', mediaRouter);
 
     // Healthcheck
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
