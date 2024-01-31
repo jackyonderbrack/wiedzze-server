@@ -40,23 +40,29 @@ export const getMedia = async (req: Request, res: Response, next: NextFunction) 
 
 export const deleteMedia = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // znajdujemy media do usuniecia
+        // Znajdź media do usunięcia
         const media = await mediaModel.findById(req.params.id);
         if (!media) {
             return res.status(404).json({ message: 'Media nie istnieje' });
         }
 
-        // usuwamy plik z serwera
-        const filePath = media.filePath;
-        fs.unlink(path.join(__dirname, '..', filePath), async (err) => {
-            if (err) {
-                return res.status(500).json({ message: 'Błąd podczas usuwania pliku', error: err });
+        // Budowanie pełnej ścieżki pliku
+        const filePath = path.join(__dirname, '..', '..', media.filePath);
+
+        // Spróbuj usunąć plik z serwera
+        fs.unlink(filePath, async (err) => {
+            if (err && err.code !== 'ENOENT') {
+                // 'ENOENT' oznacza, że plik nie istnieje
+                // Loguj błędy inne niż brak pliku
+                console.error('Error deleting file:', err);
             }
-            // następnie usuwamy plik z bazy
+
+            // Usuń wpis z bazy danych niezależnie od tego, czy plik istnieje
             await mediaModel.findByIdAndDelete(req.params.id);
             res.status(200).json({ message: 'Media usunięte pomyślnie' });
         });
     } catch (error) {
+        console.error('Error deleting media:', error);
         return res.status(500).json({ message: 'Błąd na serwerze podczas usuwania mediów', error });
     }
 };
