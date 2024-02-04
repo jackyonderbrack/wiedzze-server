@@ -16,6 +16,6 @@ const UserSchema: Schema = new Schema(
         userPassword: { type: String, required: true },
         isAdmin: { type: Boolean, default: false }
     },
-    { versionKey: false }
+    { versionKey: false, timestamps: true }
 );
 export default mongoose.model<IUserModel>('UserModel', UserSchema);

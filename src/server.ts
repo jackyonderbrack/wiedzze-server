@@ -9,7 +9,10 @@ import categoriesRouter from './routes/categories.router';
 import newsRouter from './routes/news.router';
 import mediaRouter from './routes/media.router';
 import path from 'path';
+import usersRouter from './routes/users.router';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const router = express();
 
 // Connect to mongodb
@@ -55,6 +58,7 @@ const StartServer = () => {
     // Routes
     router.use('/auth', authRouter);
     router.use('/start', configurationRouter);
+    router.use('/users', usersRouter);
     router.use('/categories', categoriesRouter);
     router.use('/news', newsRouter);
     router.use('/media', mediaRouter);
