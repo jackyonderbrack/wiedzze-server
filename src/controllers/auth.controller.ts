@@ -19,7 +19,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             return res.status(401).json({ message: 'Niepoprawne hasło' });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'defaultSecretKey', { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'noJwtSecret', { expiresIn: '1h' });
         res.status(200).json({ token });
     } catch (error) {
         Logging.error('Wystąpił błąd serwera');
