@@ -25,7 +25,7 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
 
 export const getMedia = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const mediaList = await mediaModel.find();
+        const mediaList = await mediaModel.find().sort({ createdAt: -1 });
         const updatedMediaList = mediaList.map((media) => {
             return {
                 ...media.toObject(),

@@ -14,7 +14,7 @@ const MediaSchema: Schema = new Schema(
         fileType: { type: String, required: true },
         filePath: { type: String, required: true }
     },
-    { versionKey: false }
+    { versionKey: false, timestamps: true }
 );
 
 export default mongoose.model<IMediaModel>('MediaModel', MediaSchema);

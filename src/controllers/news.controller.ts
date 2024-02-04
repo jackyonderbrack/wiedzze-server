@@ -17,7 +17,7 @@ export const createNews = async (req: Request, res: Response, _next: NextFunctio
 
 export const getAllNews = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-        const news = await newsModel.find().populate('newsCategory');
+        const news = await newsModel.find().sort({ createdAt: -1 }).populate('newsCategory');
         res.status(200).json(news);
     } catch (error) {
         Logging.error(error);
